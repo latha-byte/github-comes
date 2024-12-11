@@ -1,0 +1,170 @@
+Docker - Container Runtime Interface (CRI)
+1. Container create/deploy (Docker)
+2. Container monitor
+3. Container maintain
+
+Scalability, Fault Tolerance and Auto Deployment
+
+DevOps - CI/CD - Continuous Integration/Continuous Deployment (Old age)
+Developer Code - Github, Azure Repos
+Build the code (.java) - Compiling the code (Syntax error) - O/p - .exe, .jar, .dll, .py
+Deploy the code - Server (running the exe, copy the file to the server) (CPU, Memory and Storage)
+Dependency - install (2010, 2006)
+
+Application: 
+--- Data Center - place where we have a lots of servers
+--- Server - CPU, Memory, Storage
+--- Physical or Virtual
+--- Laptop has Microsoft office, ....
+--- Deployment issue - old days
+
+Problem Statement - Dependency, manual error
+1. application needs microsoft office/AR to be installed on your laptop/server
+
+Container - Image = package of application + dependencies
+When an image is run - it is called a container
+
+DevOps Engineering
+--- CI/CD (Modern)
+Developer Code - Github, Azure Repos
+Build the code - .dll. .exe, .jar, .py + Dependency + (Dockerfile - Build instructions) = Image 
+Deploy the image = Container
+
+--- Docker - Container Runtime Interface (CRI)
+------ Create a image (packaging application + dependencies)
+------ Run the image as a container
+
+---- Need a dockerfile for every application.
+---- dockerfile has the instructions to create an image (docker build <<image name>>)
+---- Create a container out of this image (docker run <<image name>>)
+
+
+Dockerfile (.net code/c#)
+-------------------------
+
+# first stage - build stage
+FROM mcr.microsoft.com/dotnet/core/sdk:2.1 AS build-env
+WORKDIR /app
+
+run install pdf
+run install word 
+
+COPY *.csproj ./
+RUN dotnet restore # restores all dependencies
+
+COPY . ./
+RUN dotnet publish -c Release -o out    ### build the application code
+
+
+# second stage - image creation
+FROM mcr.microsoft.com/dotnet/core/aspnet:2.1
+WORKDIR /app
+COPY --from=build-env /app/out .
+ENTRYPOINT ["dotnet", "asp-net-getting-started.dll"]
+
+
+-----
+
+
+
+
+---------------------------
+
+docker build - creates the image
+docker run <<image>> --- creates a container for the image
+
+Container is nothing but a process running in your laptop or server
+
+---------------------------------------------
+--- Developer: Write code (Java, c#, Python....)
+--- Dockerfile
+
+Containers: 
+--- Images: application + dependencies
+Docker creates the image
+Image when deployed it makes a container
+
+---------------------------------------------
+
+Kubernetes (K8s) - Container Orchestration Platform
+
+Kubernetes (K8s) Introduction, Docker, Images, Containers
+
+What is Kubernetes - Container Orchestration Platform, Opensource
+
+--- What is Orchestration (creating, monitoring and maintaining)
+--------  Deploy your images as containers (creating)
+--------  Container health check (Monitor the container)
+-------- Maintenance (fix the problem with the container)
+----------- Auto Healing
+----------- Auto Scaling 
+----------- Auto Deployment 
+
+Docker, CRIO, Containerd - Container Runtime Interface
+
+
+Kubernetes 
+---- Configuration files (Yaml syntax)
+---- Kubectl commands (command prompt)
+
+
+Pods*
+Deployments*
+Statefulsets
+Daemonsets
+Services*
+Configmaps/Secrets
+PV/PVC*
+HPA
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: thirdpod
+  namespace: default
+spec:
+  containers:
+  - name: firstcontainer
+    image: nginx
+
+
+- yaml
+
+Key: Value
+Object
+List
+
+
+type: idiot
+
+Orange - fruit, sour, orange
+
+Orange:
+  color: orange
+  type: fruit
+  taste: sour
+
+Fruit:
+- Banana:
+    color: orange
+    type: fruit
+    taste: sour
+
+- Orange:
+    color: orange
+    type: fruit
+    taste: sour
+
+- Apple:
+    color: orange
+    type: fruit
+    taste: sour
+
+- Grapes:
+    color: orange
+    type: fruit
+    taste: sour
+
+
+
+
